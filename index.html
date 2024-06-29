@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+  
+  <title>Frontend Mentor | IP Address Tracker</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+    body{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100vh;
+      font-size: 112.5%;
+    }
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+    .rubik-300 {
+      font-family: "Rubik", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 300;
+      font-style: normal;
+    }
+    .rubik-400 {
+      font-family: "Rubik", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+    }
+    .rubik-500 {
+      font-family: "Rubik", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 500;
+      font-style: normal;
+    }
+    .rubik-700 {
+      font-family: "Rubik", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 700;
+      font-style: normal;
+    }
+    .rubik-600 {
+      font-family: "Rubik", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-style: normal;
+    }
+    .rubik-800 {
+      font-family: "Rubik", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 800;
+      font-style: normal;
+    }
+    .bg-pattern{
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      background: url('./images/pattern-bg-desktop.png')
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <div class="flex flex-col w-full h-full">
+
+    <div class="w-full h-[30%] md:h-[42%] flex flex-col items-center bg-pattern relative">
+      <h1 class="rubik-600 text-white text-2xl mt-4 sm:mt-6 sm:mb-7 sm:text-3xl">IP Address Tracker</h1>
+      <div class="w-[90%] sm:w-[35%] my-4 rounded-xl text-lg bg-white flex overflow-hidden relative">
+        <input id="inputIP" placeholder="Search for any IP addres or Domain" class="rounded-xl text-xs md:text-lg sm:text-sm h-full p-4 flex-1 cursor-pointer focus:outline-none rubik-400 px-4" type="text">
+        <button id="enterIP" class="absolute top-0 right-0 w-[3rem] h-full bg-black flex justify-center item-center hover:bg-[#2b2b2b] transition-color ease-in-out duration-300">
+          <img class="relative top-[1rem] sm:top-5"  src="./images/icon-arrow.svg" alt="arrow">
+        </button>
+      </div>
+      
+      <div class="absolute sm:h-[9.5rem] h-auto w-[90%] sm:w-[78%] bg-white z-[10] -bottom-[9rem] sm:-bottom-[5rem] rounded-xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-start sm:justify-between">
+        <div class="sm:w-[25%] w-full text-center sm:text-start h-full bg-white mb-2">
+          <h2 class="text-xs ml-3 sm:text-sm tracking-widest text-gray-400 rubik-600 mb-1 sm:mb-2">IP ADDRESS</h2>
+          <p id="displayIP" class="text-lg sm:h-[3.5rem] sm:text-xl md:text-2xl text-black rubik-700 word-break sm:border-gray-200 sm:border-r-2 px-3">192.0.0.0</p>
+        </div>
+        <div class="sm:w-[25%] w-full text-center sm:text-start h-full bg-white mb-2">
+          <h2 class="text-xs ml-3 sm:text-sm tracking-widest text-gray-400 rubik-600 mb-1 sm:mb-2">LOCATION</h2>
+          <p id="city" class="text-lg sm:h-[3.5rem] sm:text-xl md:text-2xl text-black rubik-700 word break sm:border-gray-200 sm:border-r-2 px-3">Brooklyn NY, 10001</p>
+        </div>
+        <div class="sm:w-[25%] w-full text-center sm:text-start h-full bg-white mb-2">
+          <h2 class="text-xs ml-3 sm:text-sm tracking-widest text-gray-400 rubik-600 mb-1 sm:mb-2">TIMEZONE</h2>
+          <p id="timezone" class="text-lg sm:h-[3.5rem] sm:text-xl md:text-2xl text-black rubik-700 word break sm:border-gray-200 sm:border-r-2 px-3">UTC-05:00</p>
+        </div>
+        <div class="sm:w-[25%] w-full text-center sm:text-start h-full bg-white mb-2">
+          <h2 class="text-xs ml-3 sm:text-sm tracking-widest text-gray-400 rubik-600 mb-1 sm:mb-2">ISP</h2>
+          <p id="displayISP" class="text-lg sm:h-[3.5rem] sm:text-xl md:text-2xl text-black rubik-700 word break px-3">SpaceX Starlink</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full relative h-[70%] sm:h-[58%] z-[9]" id="map"></div>
+  </div>
+  
+  <!-- <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Mohit</a>.
+  </div> -->
+
+  <script src="script.js" ></script>
+</body>
+</html>
