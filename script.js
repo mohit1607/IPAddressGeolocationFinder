@@ -79,7 +79,7 @@
     window.addEventListener('load', async() => {
         let yourIP = await getPublicIP()
         displayIP.innerText = yourIP
-        console.log(getGeoByIP(yourIP));
+        getGeoByIP(yourIP)
     })
 
 })();
