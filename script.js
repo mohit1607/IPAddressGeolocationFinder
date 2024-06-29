@@ -21,6 +21,19 @@
         const regex = /^((25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])$|^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/;
         return regex.test(input);
     }
+
+    async function getPublicIP() {
+        let res = ""
+        try {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            console.log(data.ip)
+            res =  data.ip
+        } catch (error) {
+            console.error('Error fetching IP address:', error);
+        }
+        return res
+    }
     
     const getGeoByIP = async(inputValue) => {
         try{
@@ -63,9 +76,10 @@
         }
 
     })
-    window.addEventListener('load', () => {
-        console.log('Your IP: ', location.host)
-        displayIP.innerText = location.hostname
+    window.addEventListener('load', async() => {
+        let yourIP = await getPublicIP()
+        displayIP.innerText = yourIP
+        console.log(getGeoByIP(yourIP));
     })
 
 })();
